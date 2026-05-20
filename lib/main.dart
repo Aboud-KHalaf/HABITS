@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'core/theme/theme.dart';
-import 'core/database/hive_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await HiveService.init();
   runApp(const HabitsApp());
 }
 
@@ -17,11 +15,7 @@ class HabitsApp extends StatelessWidget {
       title: 'HABITS',
       theme: AppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      home: const Scaffold(
-        body: Center(
-          child: Text('HABITS Tracker'),
-        ),
-      ),
+      home: const Scaffold(body: Center(child: Text('HABITS Tracker'))),
     );
   }
 }
