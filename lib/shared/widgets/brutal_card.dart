@@ -23,8 +23,11 @@ class BrutalCard extends StatelessWidget {
       padding: padding,
       decoration: BoxDecoration(
         color: backgroundColor,
-        border: AppBorders.outlineThick,
-        boxShadow: const [AppShadows.brutalSubtle],
+        border: Border.all(
+          color: AppColors.white,
+          width: AppBorders.borderWidthThin,
+        ),
+        boxShadow: const [AppShadows.level1],
       ),
       child: child,
     );

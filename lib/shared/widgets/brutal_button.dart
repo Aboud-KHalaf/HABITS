@@ -18,8 +18,8 @@ class BrutalButton extends StatefulWidget {
     super.key,
     required this.text,
     required this.onPressed,
-    this.backgroundColor = AppColors.electricBlue,
-    this.textColor = AppColors.textPrimary,
+    this.backgroundColor = AppColors.neonYellow,
+    this.textColor = AppColors.black,
     this.icon,
   });
 
@@ -29,6 +29,7 @@ class BrutalButton extends StatefulWidget {
 
 class _BrutalButtonState extends State<BrutalButton> {
   bool _isPressed = false;
+  bool _isHovered = false;
 
   void _onPointerDown(PointerDownEvent event) => setState(() => _isPressed = true);
   void _onPointerUp(PointerUpEvent event) => setState(() => _isPressed = false);
@@ -36,40 +37,49 @@ class _BrutalButtonState extends State<BrutalButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Listener(
-      onPointerDown: _onPointerDown,
-      onPointerUp: _onPointerUp,
-      onPointerCancel: _onPointerCancel,
-      child: GestureDetector(
-        onTap: widget.onPressed,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 100),
-          transform: Matrix4.translationValues(
-            _isPressed ? 4.0 : 0.0,
-            _isPressed ? 4.0 : 0.0,
-            0.0,
-          ),
-          decoration: BoxDecoration(
-            color: widget.backgroundColor,
-            border: AppBorders.outlineThick,
-            boxShadow: _isPressed ? [] : [AppShadows.brutalDefault],
-          ),
-          height: AppDimensions.buttonHeight,
-          child: Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (widget.icon != null) ...[
-                  widget.icon!,
-                  AppSpacing.gapWXS,
-                ],
-                Text(
-                  widget.text.toUpperCase(),
-                  style: AppTypography.heading3.copyWith(
-                    color: widget.textColor,
+    final displayColor = _isHovered ? AppColors.shockingPink : widget.backgroundColor;
+
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: Listener(
+        onPointerDown: _onPointerDown,
+        onPointerUp: _onPointerUp,
+        onPointerCancel: _onPointerCancel,
+        child: GestureDetector(
+          onTap: widget.onPressed,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 100),
+            transform: Matrix4.translationValues(
+              _isPressed ? 5.0 : 0.0,
+              _isPressed ? 5.0 : 0.0,
+              0.0,
+            ),
+            decoration: BoxDecoration(
+              color: displayColor,
+              border: Border.all(
+                color: AppColors.black,
+                width: AppBorders.borderWidthThin,
+              ),
+              boxShadow: _isPressed ? [] : [AppShadows.level1],
+            ),
+            height: AppDimensions.buttonHeight,
+            child: Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (widget.icon != null) ...[
+                    widget.icon!,
+                    AppSpacing.gapWXS,
+                  ],
+                  Text(
+                    widget.text.toUpperCase(),
+                    style: AppTypography.headlineMd.copyWith(
+                      color: widget.textColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

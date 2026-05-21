@@ -8,27 +8,20 @@ class BrutalSectionTitle extends StatelessWidget {
   final String title;
   final String? subtitle;
 
-  const BrutalSectionTitle({
-    super.key,
-    required this.title,
-    this.subtitle,
-  });
+  const BrutalSectionTitle({super.key, required this.title, this.subtitle});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title.toUpperCase(),
-          style: AppTypography.heading2,
-        ),
+        Text(title.toUpperCase(), style: AppTypography.headlineLg),
         if (subtitle != null) ...[
-          AppSpacing.gapXXS,
+          AppSpacing.gapSM,
           Text(
             subtitle!,
             style: AppTypography.bodySmall.copyWith(
-              color: AppColors.electricBlue,
+              color: AppColors.neonYellow,
             ),
           ),
         ],

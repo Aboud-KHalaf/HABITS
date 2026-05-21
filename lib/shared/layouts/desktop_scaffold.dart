@@ -29,7 +29,7 @@ class DesktopScaffold extends StatelessWidget {
                 width: AppDimensions.sidebarWidthDesktop,
                 child: leftNavigation!,
               ),
-              Container(width: AppBorders.widthThick, color: AppColors.border),
+              Container(width: AppBorders.borderWidthThin, color: AppColors.neonYellow),
             ],
             Expanded(
               child: Center(
@@ -42,7 +42,7 @@ class DesktopScaffold extends StatelessWidget {
               ),
             ),
             if (rightPanel != null) ...[
-              Container(width: AppBorders.widthThick, color: AppColors.border),
+              Container(width: AppBorders.borderWidthThin, color: AppColors.neonYellow),
               SizedBox(
                 width: AppDimensions.analyticsPanelWidthDesktop,
                 child: rightPanel!,

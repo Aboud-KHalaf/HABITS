@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../shared/widgets/brutal_navigation_item.dart';
+import '../../../../shared/design_system/app_typography.dart';
 
 class DashboardNavigationRail extends StatelessWidget {
   const DashboardNavigationRail({super.key});
@@ -9,7 +10,20 @@ class DashboardNavigationRail extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SizedBox(height: 64, child: Center(child: Text('HABITS', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)))),
+        const SizedBox(
+          height: 64,
+          child: Center(
+            child: Text(
+              'HABITS',
+              style: TextStyle(
+                fontFamily: AppTypography.fontFamily,
+                fontWeight: FontWeight.w900,
+                fontSize: 24,
+                letterSpacing: 1.0,
+              ),
+            ),
+          ),
+        ),
         BrutalNavigationItem(
           icon: Icons.dashboard,
           label: 'Dashboard',

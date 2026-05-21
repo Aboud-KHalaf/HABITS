@@ -29,11 +29,11 @@ class TabletScaffold extends StatelessWidget {
                 width: AppDimensions.sidebarWidthDesktop,
                 child: navigationRail!,
               ),
-              Container(width: AppBorders.widthThick, color: AppColors.border),
+              Container(width: AppBorders.borderWidthThin, color: AppColors.neonYellow),
             ],
             Expanded(child: body),
             if (sidePanel != null) ...[
-              Container(width: AppBorders.widthThick, color: AppColors.border),
+              Container(width: AppBorders.borderWidthThin, color: AppColors.neonYellow),
               SizedBox(
                 width: AppDimensions.analyticsPanelWidthTablet,
                 child: sidePanel!,

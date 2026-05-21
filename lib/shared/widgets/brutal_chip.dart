@@ -27,13 +27,16 @@ class BrutalChip extends StatelessWidget {
           vertical: AppSpacing.xs,
         ),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.neonGreen : AppColors.surface,
-          border: AppBorders.outlineThick,
+          color: isSelected ? AppColors.electricGreen : AppColors.surface,
+          border: Border.all(
+            color: isSelected ? AppColors.black : AppColors.white,
+            width: AppBorders.borderWidthThin,
+          ),
         ),
         child: Text(
           label.toUpperCase(),
-          style: AppTypography.label.copyWith(
-            color: isSelected ? AppColors.textInverse : AppColors.textPrimary,
+          style: AppTypography.labelMono.copyWith(
+            color: isSelected ? AppColors.black : AppColors.white,
           ),
         ),
       ),

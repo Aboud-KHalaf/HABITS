@@ -26,9 +26,9 @@ class BrutalNavigationItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.sm),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.surfaceElevated : Colors.transparent,
+          color: isSelected ? AppColors.surfaceContainerHigh : Colors.transparent,
           border: isSelected
-              ? const Border(left: BorderSide(color: AppColors.electricBlue, width: AppBorders.widthThick))
+              ? const Border(left: BorderSide(color: AppColors.neonYellow, width: AppBorders.borderWidthThin))
               : null,
         ),
         child: Row(
@@ -36,13 +36,13 @@ class BrutalNavigationItem extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: isSelected ? AppColors.electricBlue : AppColors.textSecondary,
+              color: isSelected ? AppColors.neonYellow : AppColors.onSurfaceVariant,
             ),
             AppSpacing.gapWXS,
             Text(
               label.toUpperCase(),
-              style: AppTypography.label.copyWith(
-                color: isSelected ? AppColors.textPrimary : AppColors.textSecondary,
+              style: AppTypography.labelMono.copyWith(
+                color: isSelected ? AppColors.white : AppColors.onSurfaceVariant,
               ),
             ),
           ],
