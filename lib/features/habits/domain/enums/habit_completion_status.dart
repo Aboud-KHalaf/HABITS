@@ -1,0 +1,4 @@
+enum HabitCompletionStatus {
+  completed,
+  skipped,
+}
