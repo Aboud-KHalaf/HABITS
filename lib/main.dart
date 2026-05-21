@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habits/features/habits/presentation/pages/dashboard_page.dart';
 import 'core/theme/theme.dart';
 
 void main() async {
@@ -15,7 +16,7 @@ class HabitsApp extends StatelessWidget {
       title: 'HABITS',
       theme: AppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      home: const Scaffold(body: Center(child: Text('HABITS Tracker'))),
+      home: const DashboardPage(),
     );
   }
 }
