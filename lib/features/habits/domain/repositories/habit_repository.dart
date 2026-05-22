@@ -12,6 +12,8 @@ abstract class HabitRepository {
 
   Future<void> completeHabit(HabitCompletionEntity completion);
 
+  Future<void> uncompleteHabit(String habitId);
+
   Future<List<HabitEntity>> getTodayHabits();
 
   Future<List<HabitCompletionEntity>> getHabitCompletions(String habitId);

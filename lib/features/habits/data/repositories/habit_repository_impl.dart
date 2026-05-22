@@ -40,6 +40,22 @@ class HabitRepositoryImpl implements HabitRepository {
   }
 
   @override
+  Future<void> uncompleteHabit(String habitId) async {
+    final today = DateTime.now();
+    final completions = await _localDataSource.getHabitCompletions(habitId);
+    
+    // Find today's completion and delete it
+    for (final completion in completions) {
+      final cDate = completion.date;
+      if (cDate.year == today.year &&
+          cDate.month == today.month &&
+          cDate.day == today.day) {
+        await _localDataSource.deleteCompletion(completion.id);
+      }
+    }
+  }
+
+  @override
   Future<List<HabitEntity>> getTodayHabits() async {
     final models = await _localDataSource.getHabits();
     final today = DateTime.now();

@@ -10,6 +10,7 @@ abstract class HabitLocalDataSource {
 
   Future<void> saveHabitCompletion(HabitCompletionModel completion);
   Future<List<HabitCompletionModel>> getHabitCompletions(String habitId);
+  Future<void> deleteCompletion(String completionId);
 }
 
 class HabitLocalDataSourceImpl implements HabitLocalDataSource {
@@ -74,5 +75,11 @@ class HabitLocalDataSourceImpl implements HabitLocalDataSource {
   Future<List<HabitCompletionModel>> getHabitCompletions(String habitId) async {
     final box = await _getCompletionsBox();
     return box.values.where((c) => c.habitId == habitId).toList();
+  }
+
+  @override
+  Future<void> deleteCompletion(String completionId) async {
+    final box = await _getCompletionsBox();
+    await box.delete(completionId);
   }
 }

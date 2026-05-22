@@ -12,7 +12,9 @@ class HabitsList extends ConsumerWidget {
   const HabitsList({super.key});
 
   void _toggleHabit(String id, HabitEntity habit, WidgetRef ref) {
-    if (!habit.isCompletedToday) {
+    if (habit.isCompletedToday) {
+      ref.read(habitsViewModelProvider.notifier).uncompleteHabit(id);
+    } else {
       ref.read(habitsViewModelProvider.notifier).completeHabit(habit);
     }
   }

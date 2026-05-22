@@ -3,6 +3,7 @@ import '../../data/datasources/habit_local_datasource.dart';
 import '../../data/repositories/habit_repository_impl.dart';
 import '../../domain/repositories/habit_repository.dart';
 import '../../domain/usecases/complete_habit.dart';
+import '../../domain/usecases/uncomplete_habit.dart';
 import '../../domain/usecases/create_habit.dart';
 import '../../domain/usecases/get_habits.dart';
 import '../../domain/usecases/get_today_habits.dart';
@@ -37,4 +38,9 @@ final createHabitUseCaseProvider = Provider<CreateHabit>((ref) {
 final completeHabitUseCaseProvider = Provider<CompleteHabit>((ref) {
   final repository = ref.watch(habitRepositoryProvider);
   return CompleteHabit(repository);
+});
+
+final uncompleteHabitUseCaseProvider = Provider<UncompleteHabit>((ref) {
+  final repository = ref.watch(habitRepositoryProvider);
+  return UncompleteHabit(repository);
 });

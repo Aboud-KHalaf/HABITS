@@ -36,6 +36,19 @@ class HabitsViewModel extends AsyncNotifier<List<HabitEntity>> {
     }
   }
 
+  Future<void> uncompleteHabit(String habitId) async {
+    try {
+      final uncompleteHabitUseCase = ref.read(uncompleteHabitUseCaseProvider);
+      await uncompleteHabitUseCase.call(habitId);
+      
+      // Refresh the entire list to reflect new completion status
+      await Future.delayed(const Duration(milliseconds: 100));
+      ref.invalidateSelf();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> refresh() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() => _fetchTodayHabits());
