@@ -163,6 +163,86 @@ class AppTheme {
       }),
     ),
     iconTheme: const IconThemeData(color: AppColors.onSurface, size: 24),
+    dialogTheme: const DialogThemeData(
+      backgroundColor: AppColors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.zero,
+        side: BorderSide(
+          color: AppColors.onSurface,
+          width: AppSpacing.borderWidthThin,
+        ),
+      ),
+    ),
+    datePickerTheme: DatePickerThemeData(
+      backgroundColor: AppColors.surface,
+      elevation: 0,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.zero,
+        side: BorderSide(
+          color: AppColors.onSurface,
+          width: AppSpacing.borderWidthThin,
+        ),
+      ),
+      headerBackgroundColor: AppColors.surfaceContainerLow,
+      headerForegroundColor: AppColors.onSurface,
+      dayShape: WidgetStateProperty.all(
+        const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      ),
+      dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return AppColors.secondaryContainer; // Electric Green
+        }
+        return null;
+      }),
+      dayForegroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return AppColors.surface;
+        }
+        return null;
+      }),
+      todayBackgroundColor: WidgetStateProperty.all(Colors.transparent),
+      todayForegroundColor: WidgetStateProperty.all(
+        AppColors.primaryContainer,
+      ), // Neon Yellow
+      todayBorder: const BorderSide(
+        color: AppColors.primaryContainer,
+        width: 1.5,
+      ),
+    ),
+    timePickerTheme: TimePickerThemeData(
+      backgroundColor: AppColors.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.zero,
+        side: BorderSide(
+          color: AppColors.onSurface,
+          width: AppSpacing.borderWidthThin,
+        ),
+      ),
+      hourMinuteShape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.zero,
+        side: BorderSide(
+          color: AppColors.outline,
+          width: AppSpacing.borderWidthThin,
+        ),
+      ),
+      hourMinuteColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return AppColors.primaryContainer; // Neon Yellow
+        }
+        return AppColors.surfaceContainerLow;
+      }),
+      hourMinuteTextColor: WidgetStateColor.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return AppColors.surface;
+        }
+        return AppColors.onSurface;
+      }),
+      dialBackgroundColor: AppColors.surfaceContainerLow,
+      dialHandColor: AppColors.primaryContainer,
+      dialTextColor: AppColors.onSurface,
+      entryModeIconColor: AppColors.onSurface,
+    ),
   );
 }
 

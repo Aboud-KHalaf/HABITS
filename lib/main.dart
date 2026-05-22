@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habits/features/habits/presentation/pages/dashboard_page.dart';
 import 'core/theme/theme.dart';
+import 'core/database/hive_initializer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const HabitsApp());
+  await HiveInitializer.init();
+  runApp(const ProviderScope(child: HabitsApp()));
 }
 
 class HabitsApp extends StatelessWidget {

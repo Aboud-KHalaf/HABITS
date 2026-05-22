@@ -12,6 +12,7 @@ class BrutalButton extends StatefulWidget {
   final VoidCallback onPressed;
   final Color backgroundColor;
   final Color textColor;
+  final Color borderColor;
   final Widget? icon;
 
   const BrutalButton({
@@ -20,6 +21,7 @@ class BrutalButton extends StatefulWidget {
     required this.onPressed,
     this.backgroundColor = AppColors.neonYellow,
     this.textColor = AppColors.black,
+    this.borderColor = AppColors.black,
     this.icon,
   });
 
@@ -58,7 +60,7 @@ class _BrutalButtonState extends State<BrutalButton> {
             decoration: BoxDecoration(
               color: displayColor,
               border: Border.all(
-                color: AppColors.black,
+                color: widget.borderColor,
                 width: AppBorders.borderWidthThin,
               ),
               boxShadow: _isPressed ? [] : [AppShadows.level1],

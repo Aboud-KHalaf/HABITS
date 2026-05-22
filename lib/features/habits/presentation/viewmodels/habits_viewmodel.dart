@@ -26,13 +26,12 @@ class HabitsViewModel extends AsyncNotifier<List<HabitEntity>> {
         status: HabitCompletionStatus.completed,
       );
 
-      // Save the completion using UseCase
       await completeHabitUseCase.call(completion);
       
-      // Instead of manual UI edits, refresh states if needed
-      // Currently the list returns all active habits. Completion tracking is usually checked per-habit.
+      // Refresh the entire list to reflect new completion status
+      await Future.delayed(const Duration(milliseconds: 100));
+      ref.invalidateSelf();
     } catch (e) {
-      // Typically we could emit an error state or let UI handle the exception
       rethrow;
     }
   }

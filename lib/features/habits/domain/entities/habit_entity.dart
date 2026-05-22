@@ -10,6 +10,7 @@ class HabitEntity {
   final String? notes;
   final DateTime createdAt;
   final int notificationId;
+  final bool isCompletedToday;
 
   const HabitEntity({
     required this.id,
@@ -21,6 +22,7 @@ class HabitEntity {
     this.notes,
     required this.createdAt,
     required this.notificationId,
+    this.isCompletedToday = false,
   });
 
   HabitEntity copyWith({
@@ -33,6 +35,7 @@ class HabitEntity {
     String? notes,
     DateTime? createdAt,
     int? notificationId,
+    bool? isCompletedToday,
   }) {
     return HabitEntity(
       id: id ?? this.id,
@@ -44,6 +47,13 @@ class HabitEntity {
       notes: notes ?? this.notes,
       createdAt: createdAt ?? this.createdAt,
       notificationId: notificationId ?? this.notificationId,
+      isCompletedToday: isCompletedToday ?? this.isCompletedToday,
     );
+  }
+
+  void get toPrint {
+    String str =
+        'HabitEntity(id: $id, name: $name, iconCodePoint: $iconCodePoint, frequency: $frequency, selectedWeekDays: $selectedWeekDays, reminderTime: $reminderTime, notes: $notes, createdAt: $createdAt, notificationId: $notificationId)';
+    print(str);
   }
 }

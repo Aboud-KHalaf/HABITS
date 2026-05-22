@@ -34,6 +34,7 @@ class HabitMapper {
       notes: model.notes,
       createdAt: model.createdAt,
       notificationId: model.notificationId,
+      isCompletedToday: false,
     );
   }
 }

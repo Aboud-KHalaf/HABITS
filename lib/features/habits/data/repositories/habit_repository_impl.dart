@@ -47,13 +47,28 @@ class HabitRepositoryImpl implements HabitRepository {
 
     final entities = models.map((m) => HabitMapper.toEntity(m)).toList();
 
-    return entities.where((habit) {
+    var filtered = entities.where((habit) {
       if (habit.frequency == HabitFrequency.daily) return true;
       if (habit.frequency == HabitFrequency.weekly) {
         return habit.selectedWeekDays.contains(currentWeekDay);
       }
       return false;
     }).toList();
+
+    // Check completion status for each habit
+    final habitsWithCompletion = <HabitEntity>[];
+    for (final habit in filtered) {
+      final completions = await _localDataSource.getHabitCompletions(habit.id);
+      final isCompletedToday = completions.any((c) {
+        final cDate = c.date;
+        return cDate.year == today.year &&
+            cDate.month == today.month &&
+            cDate.day == today.day;
+      });
+      habitsWithCompletion.add(habit.copyWith(isCompletedToday: isCompletedToday));
+    }
+
+    return habitsWithCompletion;
   }
 
   @override

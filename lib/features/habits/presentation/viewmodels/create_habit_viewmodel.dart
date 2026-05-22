@@ -26,11 +26,15 @@ class CreateHabitViewModel extends Notifier<CreateHabitState> {
     state = state.copyWith(selectedWeekDays: currentDays);
   }
 
-  Future<void> submitHabit(String name, int iconCodePoint, {String? notes}) async {
+  Future<void> submitHabit(
+    String name,
+    int iconCodePoint, {
+    String? notes,
+  }) async {
     state = state.copyWith(isSubmitting: true, errorMessage: null);
     try {
       final createHabit = ref.read(createHabitUseCaseProvider);
-      
+
       final newHabit = HabitEntity(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         name: name,
@@ -42,19 +46,21 @@ class CreateHabitViewModel extends Notifier<CreateHabitState> {
         notificationId: Random().nextInt(1000000), // Random temporary ID
       );
 
+      newHabit
+          .toPrint; // Debug print to check the habit details before creation
       await createHabit.call(newHabit);
-      
+
       state = state.copyWith(isSubmitting: false, isSuccess: true);
-      
+
       // Invalidate HabitsViewModel so it fetches the new list
       ref.invalidate(habitsViewModelProvider);
-      
     } catch (e) {
       state = state.copyWith(isSubmitting: false, errorMessage: e.toString());
     }
   }
 }
 
-final createHabitViewModelProvider = NotifierProvider<CreateHabitViewModel, CreateHabitState>(() {
-  return CreateHabitViewModel();
-});
+final createHabitViewModelProvider =
+    NotifierProvider<CreateHabitViewModel, CreateHabitState>(() {
+      return CreateHabitViewModel();
+    });

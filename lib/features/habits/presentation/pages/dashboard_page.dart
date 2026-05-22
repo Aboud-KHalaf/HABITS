@@ -6,6 +6,7 @@ import '../widgets/dashboard_navigation_rail.dart';
 import '../../../../shared/design_system/app_colors.dart';
 import '../../../../shared/design_system/app_borders.dart';
 import '../../../../shared/design_system/app_typography.dart';
+import 'create_habit_page.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -169,7 +170,13 @@ class DashboardPage extends StatelessWidget {
       ),
 
       mobileFloatingActionButton: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const CreateHabitPage(),
+            ),
+          );
+        },
         child: Container(
           width: 56,
           height: 56,
