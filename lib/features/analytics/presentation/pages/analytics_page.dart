@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../shared/design_system/app_typography.dart';
 import '../../../../shared/design_system/app_spacing.dart';
 import '../../../../shared/design_system/app_colors.dart';
+import '../../../../shared/responsive/adaptive_layout.dart';
+import '../../domain/entities/analytics_summary_entity.dart';
 import '../viewmodels/analytics_viewmodel.dart';
 import '../widgets/streak_card.dart';
 import '../widgets/heatmap_card.dart';
@@ -25,39 +27,10 @@ class AnalyticsPage extends ConsumerWidget {
               ref.read(analyticsViewModelProvider.notifier).refresh(),
           child: analyticsState.when(
             data: (summary) {
-              return ListView(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                children: [
-                  StreakCard(
-                    title: 'Current Streak',
-                    streak: summary.currentStreak,
-                    icon: const Text('🔥', style: TextStyle(fontSize: 48)),
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  StreakCard(
-                    title: 'Best Streak',
-                    streak: summary.bestStreak,
-                    icon: const Text('⭐', style: TextStyle(fontSize: 48)),
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  HeatmapCard(history: summary.history90Days),
-                  const SizedBox(height: AppSpacing.md),
-                  SingleMetricCard(
-                    title: 'Completion',
-                    metric: '${(summary.completionRate * 100).toInt()}%',
-                    metricColor: AppColors.primary,
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  SingleMetricCard(
-                    title: 'Total Days',
-                    metric: summary.totalDays.toString(),
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  WeeklyPerformanceCard(
-                    weeklyPerformance: summary.weeklyPerformance,
-                  ),
-                  const SizedBox(height: AppSpacing.xl),
-                ],
+              return AdaptiveLayout(
+                mobile: _buildMobileLayout(summary),
+                tablet: _buildDesktopLayout(summary), // Tablet can comfortably hold the 2-column layout
+                desktop: _buildDesktopLayout(summary),
               );
             },
             loading: () => const Center(
@@ -76,6 +49,96 @@ class AnalyticsPage extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildMobileLayout(AnalyticsSummaryEntity summary) {
+    return ListView(
+      padding: const EdgeInsets.all(AppSpacing.md),
+      children: [
+        StreakCard(
+          title: 'Current Streak',
+          streak: summary.currentStreak,
+          icon: const Text('🔥', style: TextStyle(fontSize: 48)),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        StreakCard(
+          title: 'Best Streak',
+          streak: summary.bestStreak,
+          icon: const Text('⭐', style: TextStyle(fontSize: 48)),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        HeatmapCard(history: summary.history90Days),
+        const SizedBox(height: AppSpacing.md),
+        SingleMetricCard(
+          title: 'Completion',
+          metric: '${(summary.completionRate * 100).toInt()}%',
+          metricColor: AppColors.primary,
+        ),
+        const SizedBox(height: AppSpacing.md),
+        SingleMetricCard(
+          title: 'Total Days',
+          metric: summary.totalDays.toString(),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        WeeklyPerformanceCard(
+          weeklyPerformance: summary.weeklyPerformance,
+        ),
+        const SizedBox(height: AppSpacing.xl),
+      ],
+    );
+  }
+
+  Widget _buildDesktopLayout(AnalyticsSummaryEntity summary) {
+    return ListView(
+      padding: const EdgeInsets.all(AppSpacing.xl),
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: StreakCard(
+                title: 'Current Streak',
+                streak: summary.currentStreak,
+                icon: const Text('🔥', style: TextStyle(fontSize: 48)),
+              ),
+            ),
+            const SizedBox(width: AppSpacing.lg),
+            Expanded(
+              child: StreakCard(
+                title: 'Best Streak',
+                streak: summary.bestStreak,
+                icon: const Text('⭐', style: TextStyle(fontSize: 48)),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        HeatmapCard(history: summary.history90Days),
+        const SizedBox(height: AppSpacing.lg),
+        Row(
+          children: [
+            Expanded(
+              child: SingleMetricCard(
+                title: 'Completion',
+                metric: '${(summary.completionRate * 100).toInt()}%',
+                metricColor: AppColors.primary,
+              ),
+            ),
+            const SizedBox(width: AppSpacing.lg),
+            Expanded(
+              child: SingleMetricCard(
+                title: 'Total Days',
+                metric: summary.totalDays.toString(),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        WeeklyPerformanceCard(
+          weeklyPerformance: summary.weeklyPerformance,
+        ),
+        const SizedBox(height: AppSpacing.xl),
+      ],
     );
   }
 }

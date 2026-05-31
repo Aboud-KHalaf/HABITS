@@ -23,5 +23,5 @@ class AnalyticsViewModel extends AsyncNotifier<AnalyticsSummaryEntity> {
 
 final analyticsViewModelProvider =
     AsyncNotifierProvider<AnalyticsViewModel, AnalyticsSummaryEntity>(() {
-  return AnalyticsViewModel();
-});});
+      return AnalyticsViewModel();
+    });

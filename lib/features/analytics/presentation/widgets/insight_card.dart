@@ -22,13 +22,17 @@ class InsightCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
-            mainAxisAlignment: trailing != null ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
+            mainAxisAlignment: trailing != null
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.center,
             children: [
               Text(
                 title.toUpperCase(),
-                style: AppTypography.labelMono.copyWith(color: AppColors.textSecondary),
+                style: AppTypography.labelMono.copyWith(
+                  color: AppColors.textSecondary,
+                ),
               ),
-              if (trailing != null) trailing!,
+              ?trailing,
             ],
           ),
           const SizedBox(height: 16),
@@ -37,4 +41,4 @@ class InsightCard extends StatelessWidget {
       ),
     );
   }
-}}
+}

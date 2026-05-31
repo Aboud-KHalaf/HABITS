@@ -7,26 +7,16 @@ import 'insight_card.dart';
 class HeatmapCard extends StatelessWidget {
   final List<HeatmapDayEntity> history;
 
-  const HeatmapCard({
-    super.key,
-    required this.history,
-  });
+  const HeatmapCard({super.key, required this.history});
 
   @override
   Widget build(BuildContext context) {
     return InsightCard(
       title: '90 Day History',
-      trailing: Text(
-        'LAST 3 MONTHS',
-        style: AppTypography.labelMono,
-      ),
+      trailing: Text('LAST 3 MONTHS', style: AppTypography.labelMono),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          _buildGrid(),
-          const SizedBox(height: 12),
-          _buildLegend(),
-        ],
+        children: [_buildGrid(), const SizedBox(height: 12), _buildLegend()],
       ),
     );
   }
@@ -47,10 +37,7 @@ class HeatmapCard extends StatelessWidget {
         return Container(
           decoration: BoxDecoration(
             color: _getColorForIntensity(day.intensity),
-            border: Border.all(
-              color: AppColors.background,
-              width: 1,
-            ),
+            border: Border.all(color: AppColors.background, width: 1),
           ),
         );
       },
@@ -61,19 +48,17 @@ class HeatmapCard extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          'Less',
-          style: AppTypography.bodySmall,
-        ),
+        Text('Less', style: AppTypography.bodySmall),
         const SizedBox(width: 4),
-        Container(width: 12, height: 12, color: AppColors.surfaceContainerHighest),
+        Container(
+          width: 12,
+          height: 12,
+          color: AppColors.surfaceContainerHighest,
+        ),
         const SizedBox(width: 4),
         Container(width: 12, height: 12, color: AppColors.primaryFixedDim),
         const SizedBox(width: 4),
-        Text(
-          'More',
-          style: AppTypography.bodySmall,
-        ),
+        Text('More', style: AppTypography.bodySmall),
       ],
     );
   }
@@ -82,4 +67,4 @@ class HeatmapCard extends StatelessWidget {
     if (intensity == 0) return AppColors.surfaceContainerHighest;
     return AppColors.primaryFixedDim;
   }
-}}
+}

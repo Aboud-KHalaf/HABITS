@@ -5,7 +5,9 @@ import '../../domain/repositories/analytics_repository.dart';
 import '../../domain/usecases/get_analytics_summary_usecase.dart';
 
 // Local DataSource
-final analyticsLocalDataSourceProvider = Provider<AnalyticsLocalDataSource>((ref) {
+final analyticsLocalDataSourceProvider = Provider<AnalyticsLocalDataSource>((
+  ref,
+) {
   return AnalyticsLocalDataSourceImpl();
 });
 
@@ -16,7 +18,9 @@ final analyticsRepositoryProvider = Provider<AnalyticsRepository>((ref) {
 });
 
 // Use Cases
-final getAnalyticsSummaryUseCaseProvider = Provider<GetAnalyticsSummaryUseCase>((ref) {
-  final repository = ref.watch(analyticsRepositoryProvider);
-  return GetAnalyticsSummaryUseCase(repository);
-});
+final getAnalyticsSummaryUseCaseProvider = Provider<GetAnalyticsSummaryUseCase>(
+  (ref) {
+    final repository = ref.watch(analyticsRepositoryProvider);
+    return GetAnalyticsSummaryUseCase(repository);
+  },
+);

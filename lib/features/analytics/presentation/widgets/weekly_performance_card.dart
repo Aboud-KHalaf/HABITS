@@ -6,10 +6,7 @@ import 'insight_card.dart';
 class WeeklyPerformanceCard extends StatelessWidget {
   final List<double> weeklyPerformance;
 
-  const WeeklyPerformanceCard({
-    super.key,
-    required this.weeklyPerformance,
-  });
+  const WeeklyPerformanceCard({super.key, required this.weeklyPerformance});
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +28,11 @@ class WeeklyPerformanceCard extends StatelessWidget {
     List<Widget> bars = [];
 
     for (int i = 0; i < 7; i++) {
-      double heightFactor = weeklyPerformance.isNotEmpty && weeklyPerformance.length > i 
-          ? weeklyPerformance[i] 
+      double heightFactor =
+          weeklyPerformance.isNotEmpty && weeklyPerformance.length > i
+          ? weeklyPerformance[i]
           : 0.0;
-          
+
       // Minimal height for aesthetics
       heightFactor = heightFactor.clamp(0.1, 1.0);
 
@@ -76,4 +74,4 @@ class WeeklyPerformanceCard extends StatelessWidget {
     }
     return bars;
   }
-}}
+}

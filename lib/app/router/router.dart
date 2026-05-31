@@ -13,10 +13,7 @@ final routerProvider = GoRouter(
     ShellRoute(
       builder: (context, state, child) => AppShell(child: child),
       routes: [
-        GoRoute(
-          path: '/',
-          builder: (context, state) => const DashboardPage(),
-        ),
+        GoRoute(path: '/', builder: (context, state) => const DashboardPage()),
         GoRoute(
           path: '/calendar',
           builder: (context, state) => const CalendarPage(),

@@ -27,4 +27,4 @@ class SingleMetricCard extends StatelessWidget {
       ),
     );
   }
-}}
+}
