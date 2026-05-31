@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../shared/widgets/brutal_navigation_item.dart';
 import '../../../../shared/design_system/app_typography.dart';
+import '../../../calendar/presentation/pages/calendar_page.dart';
 
 class DashboardNavigationRail extends StatelessWidget {
   const DashboardNavigationRail({super.key});
@@ -34,7 +35,14 @@ class DashboardNavigationRail extends StatelessWidget {
           icon: Icons.calendar_month,
           label: 'History',
           isSelected: false,
-          onTap: () {},
+          onTap: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CalendarPage(),
+              ),
+            );
+          },
         ),
         BrutalNavigationItem(
           icon: Icons.bar_chart,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../shared/design_system/app_colors.dart';
 import '../../../../shared/design_system/app_typography.dart';
 
 class CreateHabitIconSelector extends StatelessWidget {
@@ -40,7 +39,7 @@ class CreateHabitIconSelector extends StatelessWidget {
         Text(
           '2. ICON (SELECT ONE)',
           style: AppTypography.labelMono.copyWith(
-            color: AppColors.white,
+            color: Theme.of(context).colorScheme.onSurface,
             fontWeight: FontWeight.w900,
           ),
         ),
@@ -62,12 +61,16 @@ class CreateHabitIconSelector extends StatelessWidget {
               onTap: () => onIconSelected(icon.codePoint),
               child: Container(
                 decoration: BoxDecoration(
-                  color: isSelected ? AppColors.electricGreen : AppColors.transparent,
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.transparent,
                 ),
                 child: Center(
                   child: Icon(
                     icon,
-                    color: AppColors.white,
+                    color: isSelected
+                        ? Theme.of(context).colorScheme.surface
+                        : Theme.of(context).colorScheme.onSurface,
                     size: 28,
                   ),
                 ),

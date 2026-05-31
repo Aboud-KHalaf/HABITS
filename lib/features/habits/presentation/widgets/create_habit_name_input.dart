@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../shared/design_system/app_colors.dart';
 import '../../../../shared/design_system/app_typography.dart';
 
 class CreateHabitNameInput extends StatelessWidget {
@@ -15,27 +14,32 @@ class CreateHabitNameInput extends StatelessWidget {
         Text(
           '1. HABIT NAME',
           style: AppTypography.labelMono.copyWith(
-            color: AppColors.white,
+            color: Theme.of(context).colorScheme.onSurface,
             fontWeight: FontWeight.w900,
           ),
         ),
         const SizedBox(height: 8),
         TextFormField(
           controller: controller,
-          style: AppTypography.bodyLg.copyWith(color: AppColors.white),
+          style: AppTypography.bodyLg.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
           decoration: InputDecoration(
             hintText: 'E.g. Drink Water',
             hintStyle: AppTypography.bodyLg.copyWith(
-              color: AppColors.onSurfaceVariant,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
-            enabledBorder: const UnderlineInputBorder(
+            enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: AppColors.onSurfaceVariant,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 width: 2,
               ),
             ),
-            focusedBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.neonYellow, width: 2),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.tertiary,
+                width: 2,
+              ),
             ),
           ),
         ),

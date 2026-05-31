@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../shared/design_system/app_colors.dart';
 import '../../../../shared/design_system/app_borders.dart';
 import '../../../../shared/design_system/app_typography.dart';
 
@@ -25,15 +24,19 @@ class HabitCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: isCompleted ? AppColors.electricGreen : AppColors.black,
+        color: isCompleted
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.surface,
         border: Border.all(
-          color: isCompleted ? AppColors.black : AppColors.white,
+          color: isCompleted
+              ? Theme.of(context).colorScheme.surface
+              : Theme.of(context).colorScheme.onSurface,
           width: AppBorders.borderWidthThin,
         ),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: AppColors.black,
-            offset: Offset(5.0, 5.0),
+            color: Theme.of(context).colorScheme.surface,
+            offset: const Offset(5.0, 5.0),
             blurRadius: 0.0,
           ),
         ],
@@ -49,9 +52,9 @@ class HabitCard extends StatelessWidget {
                 child: Text(
                   title.toUpperCase(),
                   style: AppTypography.headlineMd.copyWith(
-                    color: AppColors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     decoration: isCompleted ? TextDecoration.lineThrough : null,
-                    decorationColor: AppColors.white,
+                    decorationColor: Theme.of(context).colorScheme.onSurface,
                     decorationThickness: 2.5,
                   ),
                 ),
@@ -68,14 +71,18 @@ class HabitCard extends StatelessWidget {
                 height: 8,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: isCompleted ? AppColors.white : AppColors.onSurfaceVariant,
+                  color: isCompleted
+                      ? Theme.of(context).colorScheme.onSurface
+                      : Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(width: 8),
               Text(
                 isCompleted ? 'COMPLETED' : 'NOT DONE',
                 style: AppTypography.labelMono.copyWith(
-                  color: isCompleted ? AppColors.white : AppColors.onSurfaceVariant,
+                  color: isCompleted
+                      ? Theme.of(context).colorScheme.onSurface
+                      : Theme.of(context).colorScheme.onSurfaceVariant,
                   fontSize: 12,
                 ),
               ),
@@ -84,8 +91,12 @@ class HabitCard extends StatelessWidget {
           const SizedBox(height: 18),
           _CardButton(
             text: isCompleted ? 'UNDO ↶' : 'MARK DONE ✓',
-            backgroundColor: isCompleted ? AppColors.black : AppColors.white,
-            textColor: isCompleted ? AppColors.white : AppColors.black,
+            backgroundColor: isCompleted
+                ? Theme.of(context).colorScheme.surface
+                : Theme.of(context).colorScheme.onSurface,
+            textColor: isCompleted
+                ? Theme.of(context).colorScheme.onSurface
+                : Theme.of(context).colorScheme.surface,
             onTap: onToggle,
           ),
         ],
@@ -99,19 +110,18 @@ class _StreakBadge extends StatelessWidget {
   final int streak;
   final bool isCompleted;
 
-  const _StreakBadge({
-    required this.streak,
-    required this.isCompleted,
-  });
+  const _StreakBadge({required this.streak, required this.isCompleted});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: AppColors.black,
+        color: Theme.of(context).colorScheme.surface,
         border: Border.all(
-          color: isCompleted ? AppColors.black : AppColors.white,
+          color: isCompleted
+              ? Theme.of(context).colorScheme.surface
+              : Theme.of(context).colorScheme.onSurface,
           width: 2.0,
         ),
       ),
@@ -127,7 +137,7 @@ class _StreakBadge extends StatelessWidget {
           Text(
             '$streak',
             style: AppTypography.labelMono.copyWith(
-              color: AppColors.white,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: 12,
               fontWeight: FontWeight.w900,
             ),
@@ -177,15 +187,15 @@ class _CardButtonState extends State<_CardButton> {
         decoration: BoxDecoration(
           color: widget.backgroundColor,
           border: Border.all(
-            color: AppColors.black,
+            color: Theme.of(context).colorScheme.surface,
             width: AppBorders.borderWidthThin,
           ),
           boxShadow: _isPressed
               ? []
               : [
-                  const BoxShadow(
-                    color: AppColors.black,
-                    offset: Offset(4.0, 4.0),
+                  BoxShadow(
+                    color: Theme.of(context).colorScheme.surface,
+                    offset: const Offset(4.0, 4.0),
                     blurRadius: 0.0,
                   ),
                 ],

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:habits/shared/widgets/add_habit_fab.dart';
+import 'package:habits/shared/widgets/vertical_divider.dart';
 import '../design_system/app_colors.dart';
 import '../design_system/app_dimensions.dart';
 import '../design_system/app_borders.dart';
@@ -21,6 +23,7 @@ class TabletScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      floatingActionButton: AddHabitFab(),
       body: SafeArea(
         child: Row(
           children: [
@@ -29,16 +32,9 @@ class TabletScaffold extends StatelessWidget {
                 width: AppDimensions.sidebarWidthDesktop,
                 child: navigationRail!,
               ),
-              Container(width: AppBorders.borderWidthThin, color: AppColors.neonYellow),
+              VerticalDividerWidget(),
             ],
             Expanded(child: body),
-            if (sidePanel != null) ...[
-              Container(width: AppBorders.borderWidthThin, color: AppColors.neonYellow),
-              SizedBox(
-                width: AppDimensions.analyticsPanelWidthTablet,
-                child: sidePanel!,
-              ),
-            ],
           ],
         ),
       ),

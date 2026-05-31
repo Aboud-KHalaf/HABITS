@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../../../../shared/design_system/app_colors.dart';
 import '../../../../shared/design_system/app_borders.dart';
 import '../../../../shared/design_system/app_typography.dart';
 import '../../domain/entities/habit_entity.dart';
@@ -40,7 +39,7 @@ class HabitsList extends ConsumerWidget {
                 Text(
                   todayStr,
                   style: AppTypography.headlineMd.copyWith(
-                    color: AppColors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 18,
                     letterSpacing: 0.5,
                   ),
@@ -51,15 +50,15 @@ class HabitsList extends ConsumerWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     border: Border.all(
-                      color: AppColors.black,
+                      color: Theme.of(context).colorScheme.surface,
                       width: AppBorders.borderWidthThin,
                     ),
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: AppColors.black,
-                        offset: Offset(3.0, 3.0),
+                        color: Theme.of(context).colorScheme.surface,
+                        offset: const Offset(3.0, 3.0),
                         blurRadius: 0.0,
                       ),
                     ],
@@ -67,7 +66,7 @@ class HabitsList extends ConsumerWidget {
                   child: Text(
                     '$pendingCount PENDING',
                     style: AppTypography.labelMono.copyWith(
-                      color: AppColors.black,
+                      color: Theme.of(context).colorScheme.surface,
                       fontWeight: FontWeight.w900,
                       fontSize: 12,
                     ),
@@ -91,13 +90,15 @@ class HabitsList extends ConsumerWidget {
           ],
         );
       },
-      loading: () => const Center(
-        child: CircularProgressIndicator(color: AppColors.electricGreen),
+      loading: () => Center(
+        child: CircularProgressIndicator(
+          color: Theme.of(context).colorScheme.primary,
+        ),
       ),
       error: (error, stackTrace) => Center(
         child: Text(
           'Error loading habits: $error',
-          style: const TextStyle(color: AppColors.white),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
         ),
       ),
     );

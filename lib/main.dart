@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habits/features/habits/presentation/pages/dashboard_page.dart';
+import 'app/router/router.dart';
 import 'core/theme/theme.dart';
 import 'core/database/hive_initializer.dart';
 
@@ -15,11 +15,11 @@ class HabitsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'HABITS',
       theme: AppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      home: const DashboardPage(),
+      routerConfig: routerProvider,
     );
   }
 }

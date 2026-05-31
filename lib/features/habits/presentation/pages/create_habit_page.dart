@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../shared/design_system/app_colors.dart';
 import '../../../../shared/design_system/app_typography.dart';
 import '../../../../shared/widgets/brutal_button.dart';
 import '../viewmodels/create_habit_viewmodel.dart';
@@ -39,10 +38,14 @@ class _CreateHabitPageState extends ConsumerState<CreateHabitPage> {
       return;
     }
 
-    ref.read(createHabitViewModelProvider.notifier).submitHabit(
+    ref
+        .read(createHabitViewModelProvider.notifier)
+        .submitHabit(
           _nameController.text.trim(),
           _selectedIconCodePoint,
-          notes: _notesController.text.trim().isEmpty ? null : _notesController.text.trim(),
+          notes: _notesController.text.trim().isEmpty
+              ? null
+              : _notesController.text.trim(),
         );
   }
 
@@ -55,26 +58,30 @@ class _CreateHabitPageState extends ConsumerState<CreateHabitPage> {
       if (next.isSuccess && !(previous?.isSuccess ?? false)) {
         Navigator.of(context).pop();
       }
-      if (next.errorMessage != null && next.errorMessage != previous?.errorMessage) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(next.errorMessage!)),
-        );
+      if (next.errorMessage != null &&
+          next.errorMessage != previous?.errorMessage) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(next.errorMessage!)));
       }
     });
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: AppColors.white),
+          icon: Icon(
+            Icons.close,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
           'NEW HABIT',
           style: AppTypography.headlineMd.copyWith(
-            color: AppColors.white,
+            color: Theme.of(context).colorScheme.onSurface,
             fontSize: 20,
             letterSpacing: 1.0,
           ),
@@ -101,11 +108,15 @@ class _CreateHabitPageState extends ConsumerState<CreateHabitPage> {
               CreateHabitFrequencySelector(
                 frequency: state.frequency,
                 onFrequencyChanged: (freq) {
-                  ref.read(createHabitViewModelProvider.notifier).updateFrequency(freq);
+                  ref
+                      .read(createHabitViewModelProvider.notifier)
+                      .updateFrequency(freq);
                 },
                 selectedDays: state.selectedWeekDays,
                 onDayToggled: (day) {
-                  ref.read(createHabitViewModelProvider.notifier).toggleWeekDay(day);
+                  ref
+                      .read(createHabitViewModelProvider.notifier)
+                      .toggleWeekDay(day);
                 },
               ),
               const SizedBox(height: 32),
@@ -133,13 +144,17 @@ class _CreateHabitPageState extends ConsumerState<CreateHabitPage> {
               CreateHabitNotesInput(controller: _notesController),
               const SizedBox(height: 48),
               if (state.isSubmitting)
-                const Center(child: CircularProgressIndicator(color: AppColors.neonYellow))
+                Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).colorScheme.tertiary,
+                  ),
+                )
               else
                 BrutalButton(
                   text: 'SAVE HABIT ✓',
-                  backgroundColor: AppColors.black,
-                  textColor: AppColors.white,
-                  borderColor: AppColors.white,
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  textColor: Theme.of(context).colorScheme.onSurface,
+                  borderColor: Theme.of(context).colorScheme.onSurface,
                   onPressed: _submit,
                 ),
               const SizedBox(height: 24),

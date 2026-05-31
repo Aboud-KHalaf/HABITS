@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../../shared/design_system/app_colors.dart';
 import '../../../../shared/design_system/app_typography.dart';
 
 class CreateHabitReminderSelector extends StatelessWidget {
@@ -27,16 +26,18 @@ class CreateHabitReminderSelector extends StatelessWidget {
             Text(
               '4. REMINDER (OPTIONAL)',
               style: AppTypography.labelMono.copyWith(
-                color: AppColors.white,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.w900,
               ),
             ),
             CupertinoSwitch(
               value: isReminderEnabled,
               onChanged: onReminderToggled,
-              activeColor: AppColors.white,
-              trackColor: AppColors.surfaceVariant,
-              thumbColor: AppColors.black,
+              activeTrackColor: Theme.of(context).colorScheme.onSurface,
+              inactiveTrackColor: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest,
+              thumbColor: Theme.of(context).colorScheme.surface,
             ),
           ],
         ),
@@ -50,12 +51,16 @@ class CreateHabitReminderSelector extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.access_time, color: AppColors.white, size: 20),
+                    Icon(
+                      Icons.access_time,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      size: 20,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       'SET REMINDER TIME',
                       style: AppTypography.labelMono.copyWith(
-                        color: AppColors.white,
+                        color: Theme.of(context).colorScheme.onSurface,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
@@ -68,12 +73,16 @@ class CreateHabitReminderSelector extends StatelessWidget {
                           ? reminderTime!.format(context)
                           : '--:--',
                       style: AppTypography.labelMono.copyWith(
-                        color: AppColors.white,
+                        color: Theme.of(context).colorScheme.onSurface,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
                     const SizedBox(width: 8),
-                    const Icon(Icons.arrow_forward_ios, color: AppColors.white, size: 14),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      size: 14,
+                    ),
                   ],
                 ),
               ],
