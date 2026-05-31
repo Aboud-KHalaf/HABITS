@@ -25,8 +25,11 @@ class MissionSection extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        OverflowBar(
+          alignment: MainAxisAlignment.spaceBetween,
+          overflowAlignment: OverflowBarAlignment.start,
+          spacing: AppSpacing.sm,
+          overflowSpacing: AppSpacing.xs,
           children: [
             Text("TODAY'S MISSION", style: AppTypography.headlineLg),
             Container(
