@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import '../design_system/app_colors.dart';
 import '../design_system/app_typography.dart';
 import '../design_system/app_spacing.dart';
-import '../design_system/app_borders.dart';
 import 'app_tab.dart';
 
 class AppNavigationRail extends StatelessWidget {
@@ -31,11 +30,13 @@ class AppNavigationRail extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          ...AppTab.values.map((tab) => _RailItem(
-                tab: tab,
-                isSelected: tab == currentTab,
-                onTap: () => context.go(tab.route),
-              )),
+          ...AppTab.values.map(
+            (tab) => _RailItem(
+              tab: tab,
+              isSelected: tab == currentTab,
+              onTap: () => context.go(tab.route),
+            ),
+          ),
           const Spacer(),
         ],
       ),
@@ -75,14 +76,18 @@ class _RailItem extends StatelessWidget {
           children: [
             Icon(
               tab.icon,
-              color: isSelected ? AppColors.neonYellow : AppColors.textSecondary,
+              color: isSelected
+                  ? AppColors.neonYellow
+                  : AppColors.textSecondary,
               size: 24,
             ),
             const SizedBox(width: AppSpacing.sm),
             Text(
               tab.label,
               style: AppTypography.bodyMd.copyWith(
-                color: isSelected ? AppColors.neonYellow : AppColors.textSecondary,
+                color: isSelected
+                    ? AppColors.neonYellow
+                    : AppColors.textSecondary,
               ),
             ),
           ],

@@ -3,7 +3,6 @@ import 'package:habits/shared/widgets/add_habit_fab.dart';
 import 'package:habits/shared/widgets/vertical_divider.dart';
 import '../design_system/app_colors.dart';
 import '../design_system/app_dimensions.dart';
-import '../design_system/app_borders.dart';
 
 /// The standard Scaffold layout for Tablet sizes.
 /// Often uses a two-column layout (content + side panel) or side navigation rail.
