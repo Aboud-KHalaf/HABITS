@@ -5,6 +5,8 @@ import '../../features/habits/presentation/pages/dashboard_page.dart';
 import '../../features/calendar/presentation/pages/calendar_page.dart';
 import '../../features/habits/presentation/pages/create_habit_page.dart';
 
+import '../../features/analytics/presentation/pages/analytics_page.dart';
+
 final routerProvider = GoRouter(
   initialLocation: '/',
   routes: [
@@ -21,15 +23,7 @@ final routerProvider = GoRouter(
         ),
         GoRoute(
           path: '/analytics',
-          builder: (context, state) => const Scaffold(
-            backgroundColor: Color(0xFF131313),
-            body: Center(
-              child: Text(
-                'Analytics',
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
-            ),
-          ),
+          builder: (context, state) => const AnalyticsPage(),
         ),
         GoRoute(
           path: '/profile',

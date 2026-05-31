@@ -18,3 +18,4 @@ class HeatmapDayModel {
       totalHabitsCount: totalHabitsCount,
     );
   }
+}

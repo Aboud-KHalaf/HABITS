@@ -28,3 +28,4 @@ class AnalyticsSummaryModel {
       history90Days: history90Days.map((e) => e.toEntity()).toList(),
     );
   }
+}
