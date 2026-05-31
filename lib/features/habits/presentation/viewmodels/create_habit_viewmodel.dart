@@ -31,7 +31,11 @@ class CreateHabitViewModel extends Notifier<CreateHabitState> {
     int iconCodePoint, {
     String? notes,
   }) async {
-    state = state.copyWith(isSubmitting: true, errorMessage: null);
+    state = state.copyWith(
+      isSubmitting: true,
+      errorMessage: null,
+      isSuccess: false,
+    );
     try {
       final createHabit = ref.read(createHabitUseCaseProvider);
 

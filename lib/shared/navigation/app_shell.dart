@@ -118,7 +118,8 @@ class _DesktopShell extends StatelessWidget {
               color: AppColors.neonYellow,
             ),
             Expanded(
-              child: Center(
+              child: Align(
+                alignment: Alignment.centerLeft,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(
                     maxWidth: AppDimensions.contentMaxWidth,

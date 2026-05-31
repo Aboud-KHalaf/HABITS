@@ -13,8 +13,12 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AdaptiveLayout(
       mobile: const HabitsList(),
-      tablet: const _WithSidePanel(width: AppDimensions.analyticsPanelWidthTablet),
-      desktop: const _WithSidePanel(width: AppDimensions.analyticsPanelWidthDesktop),
+      tablet: const _WithSidePanel(
+        width: AppDimensions.analyticsPanelWidthTablet,
+      ),
+      desktop: const _WithSidePanel(
+        width: AppDimensions.analyticsPanelWidthDesktop,
+      ),
     );
   }
 }
@@ -33,10 +37,7 @@ class _WithSidePanel extends StatelessWidget {
           width: AppBorders.borderWidthThin,
           color: AppColors.neonYellow,
         ),
-        SizedBox(
-          width: width,
-          child: const DashboardAnalyticsPanel(),
-        ),
+        SizedBox(width: width, child: const DashboardAnalyticsPanel()),
       ],
     );
   }
