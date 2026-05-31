@@ -29,7 +29,9 @@ class AnalyticsPage extends ConsumerWidget {
             data: (summary) {
               return AdaptiveLayout(
                 mobile: _buildMobileLayout(summary),
-                tablet: _buildDesktopLayout(summary), // Tablet can comfortably hold the 2-column layout
+                tablet: _buildDesktopLayout(
+                  summary,
+                ), // Tablet can comfortably hold the 2-column layout
                 desktop: _buildDesktopLayout(summary),
               );
             },
@@ -81,9 +83,7 @@ class AnalyticsPage extends ConsumerWidget {
           metric: summary.totalDays.toString(),
         ),
         const SizedBox(height: AppSpacing.md),
-        WeeklyPerformanceCard(
-          weeklyPerformance: summary.weeklyPerformance,
-        ),
+        WeeklyPerformanceCard(weeklyPerformance: summary.weeklyPerformance),
         const SizedBox(height: AppSpacing.xl),
       ],
     );
@@ -134,9 +134,7 @@ class AnalyticsPage extends ConsumerWidget {
           ],
         ),
         const SizedBox(height: AppSpacing.lg),
-        WeeklyPerformanceCard(
-          weeklyPerformance: summary.weeklyPerformance,
-        ),
+        WeeklyPerformanceCard(weeklyPerformance: summary.weeklyPerformance),
         const SizedBox(height: AppSpacing.xl),
       ],
     );
