@@ -45,7 +45,9 @@ class BrutalCalendarCell extends StatelessWidget {
         margin: const EdgeInsets.all(2.0),
         decoration: BoxDecoration(
           color: bgColor,
-          border: isSelected ? AppBorders.outlineThick : AppBorders.outlineMedium,
+          border: isSelected
+              ? AppBorders.outlineThick
+              : AppBorders.outlineMedium,
         ),
         child: Stack(
           children: [
@@ -53,11 +55,7 @@ class BrutalCalendarCell extends StatelessWidget {
               Positioned(
                 top: 4,
                 left: 4,
-                child: Container(
-                  width: 8,
-                  height: 8,
-                  color: AppColors.white,
-                ),
+                child: Container(width: 8, height: 8, color: AppColors.white),
               ),
             Center(
               child: Text(
@@ -79,7 +77,6 @@ class BrutalCalendarCell extends StatelessWidget {
         return AppColors.primaryFixedDim;
       case CompletionLevel.none:
       case CompletionLevel.empty:
-      default:
         return AppColors.transparent;
     }
   }

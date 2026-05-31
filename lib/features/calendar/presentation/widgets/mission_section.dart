@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'mission_card.dart';
 import '../providers/calendar_provider.dart';
 import '../../../../shared/design_system/app_spacing.dart';
@@ -16,9 +15,11 @@ class MissionSection extends ConsumerWidget {
     final selectedDate = ref.watch(selectedDateViewModelProvider);
     // Watch the calendar state to rebuild when missions change
     ref.watch(calendarViewModelProvider);
-    
+
     // Read the missions for the specific date
-    final missions = ref.read(calendarViewModelProvider.notifier).getMissionsForDate(selectedDate);
+    final missions = ref
+        .read(calendarViewModelProvider.notifier)
+        .getMissionsForDate(selectedDate);
     final completedCount = missions.where((m) => m.isCompleted).length;
 
     return Column(
@@ -27,16 +28,18 @@ class MissionSection extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "TODAY'S MISSION",
-              style: AppTypography.headlineLg,
-            ),
+            Text("TODAY'S MISSION", style: AppTypography.headlineLg),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.sm,
+                vertical: AppSpacing.xs,
+              ),
               color: AppColors.primaryContainer,
               child: Text(
                 '$completedCount / ${missions.length} DONE',
-                style: AppTypography.labelMono.copyWith(color: AppColors.onPrimaryContainer),
+                style: AppTypography.labelMono.copyWith(
+                  color: AppColors.onPrimaryContainer,
+                ),
               ),
             ),
           ],
@@ -44,10 +47,7 @@ class MissionSection extends ConsumerWidget {
         AppSpacing.gapLG,
         if (missions.isEmpty)
           Center(
-            child: Text(
-              "NO MISSIONS FOR TODAY",
-              style: AppTypography.bodyLg,
-            ),
+            child: Text("NO MISSIONS FOR TODAY", style: AppTypography.bodyLg),
           )
         else
           ...missions.map((mission) {
@@ -55,7 +55,9 @@ class MissionSection extends ConsumerWidget {
               title: mission.title,
               isCompleted: mission.isCompleted,
               onToggle: (val) {
-                ref.read(calendarViewModelProvider.notifier).toggleMission(selectedDate, mission.id);
+                ref
+                    .read(calendarViewModelProvider.notifier)
+                    .toggleMission(selectedDate, mission.id);
               },
             );
           }),
