@@ -13,17 +13,23 @@ class MobileCalendarLayout extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final calendarState = ref.watch(calendarViewModelProvider);
+    final calendarStateAsync = ref.watch(calendarViewModelProvider);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.margin),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          CalendarHeader(
-            currentMonth: calendarState.currentMonth,
-            onNextMonth: () => ref.read(calendarViewModelProvider.notifier).nextMonth(),
-            onPreviousMonth: () => ref.read(calendarViewModelProvider.notifier).previousMonth(),
+          calendarStateAsync.when(
+            loading: () => const SizedBox.shrink(),
+            error: (err, _) => Center(child: Text('$err')),
+            data: (state) => CalendarHeader(
+              currentMonth: state.currentMonth,
+              onNextMonth: () =>
+                  ref.read(calendarViewModelProvider.notifier).nextMonth(),
+              onPreviousMonth: () =>
+                  ref.read(calendarViewModelProvider.notifier).previousMonth(),
+            ),
           ),
           AppSpacing.gapLG,
           const CalendarGrid(),

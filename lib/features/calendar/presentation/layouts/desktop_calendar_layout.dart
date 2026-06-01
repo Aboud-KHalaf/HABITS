@@ -15,13 +15,12 @@ class DesktopCalendarLayout extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final calendarState = ref.watch(calendarViewModelProvider);
+    final calendarStateAsync = ref.watch(calendarViewModelProvider);
     final screenWidth = MediaQuery.of(context).size.width;
     final sidebarWidth = screenWidth * 0.35;
     const sidebarMaxWidth = 400.0;
-    final sidebarFinalWidth = sidebarWidth > sidebarMaxWidth
-        ? sidebarMaxWidth
-        : sidebarWidth;
+    final sidebarFinalWidth =
+        sidebarWidth > sidebarMaxWidth ? sidebarMaxWidth : sidebarWidth;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,13 +32,17 @@ class DesktopCalendarLayout extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CalendarHeader(
-                  currentMonth: calendarState.currentMonth,
-                  onNextMonth: () =>
-                      ref.read(calendarViewModelProvider.notifier).nextMonth(),
-                  onPreviousMonth: () => ref
-                      .read(calendarViewModelProvider.notifier)
-                      .previousMonth(),
+                calendarStateAsync.when(
+                  loading: () => const SizedBox.shrink(),
+                  error: (err, _) => Center(child: Text('$err')),
+                  data: (state) => CalendarHeader(
+                    currentMonth: state.currentMonth,
+                    onNextMonth: () =>
+                        ref.read(calendarViewModelProvider.notifier).nextMonth(),
+                    onPreviousMonth: () => ref
+                        .read(calendarViewModelProvider.notifier)
+                        .previousMonth(),
+                  ),
                 ),
                 AppSpacing.gapLG,
                 const CalendarGrid(),

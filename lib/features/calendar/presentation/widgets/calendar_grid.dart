@@ -11,70 +11,81 @@ class CalendarGrid extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final calendarState = ref.watch(calendarViewModelProvider);
+    final calendarStateAsync = ref.watch(calendarViewModelProvider);
     final selectedDate = ref.watch(selectedDateViewModelProvider);
-    
-    final daysInMonth = DateUtils.getDaysInMonth(
-      calendarState.currentMonth.year,
-      calendarState.currentMonth.month,
-    );
-    final firstDayOffset = DateTime(
-      calendarState.currentMonth.year,
-      calendarState.currentMonth.month,
-      1,
-    ).weekday % 7; // Sunday based
 
-    return Column(
-      children: [
-        _buildDaysOfWeek(),
-        AppSpacing.gapSM,
-        Container(
-          height: 1,
-          color: AppColors.border,
-        ),
-        AppSpacing.gapSM,
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 7,
-            childAspectRatio: 1.0,
-          ),
-          itemCount: 42, // 6 rows of 7
-          itemBuilder: (context, index) {
-            if (index < firstDayOffset || index >= firstDayOffset + daysInMonth) {
-              return BrutalCalendarCell(
-                date: DateTime.now(), // dummy
-                completionLevel: CompletionLevel.empty,
-                onTap: () {},
-              );
-            }
-            
-            final day = index - firstDayOffset + 1;
-            final cellDate = DateTime(
-              calendarState.currentMonth.year,
-              calendarState.currentMonth.month,
-              day,
-            );
-            
-            final isSelected = DateUtils.isSameDay(cellDate, selectedDate);
-            final isToday = DateUtils.isSameDay(cellDate, DateTime.now());
-            
-            // Mock completion level logic
-            CompletionLevel level = CompletionLevel.none;
-            if (day % 3 == 0) level = CompletionLevel.all;
-            else if (day % 2 == 0) level = CompletionLevel.some;
+    return calendarStateAsync.when(
+      loading: () => const SizedBox.shrink(),
+      error: (err, _) => Center(child: Text('$err')),
+      data: (calendarState) {
+        final daysInMonth = DateUtils.getDaysInMonth(
+          calendarState.currentMonth.year,
+          calendarState.currentMonth.month,
+        );
+        final firstDayOffset = DateTime(
+          calendarState.currentMonth.year,
+          calendarState.currentMonth.month,
+          1,
+        ).weekday % 7;
 
-            return BrutalCalendarCell(
-              date: cellDate,
-              isSelected: isSelected,
-              isToday: isToday,
-              completionLevel: level,
-              onTap: () => ref.read(selectedDateViewModelProvider.notifier).selectDate(cellDate),
-            );
-          },
-        ),
-      ],
+        return Column(
+          children: [
+            _buildDaysOfWeek(),
+            AppSpacing.gapSM,
+            Container(height: 1, color: AppColors.border),
+            AppSpacing.gapSM,
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 7,
+                childAspectRatio: 1.0,
+              ),
+              itemCount: 42,
+              itemBuilder: (context, index) {
+                if (index < firstDayOffset ||
+                    index >= firstDayOffset + daysInMonth) {
+                  return BrutalCalendarCell(
+                    date: DateTime.now(),
+                    completionLevel: CompletionLevel.empty,
+                    onTap: () {},
+                  );
+                }
+
+                final day = index - firstDayOffset + 1;
+                final cellDate = DateTime(
+                  calendarState.currentMonth.year,
+                  calendarState.currentMonth.month,
+                  day,
+                );
+
+                final isSelected = DateUtils.isSameDay(cellDate, selectedDate);
+                final isToday = DateUtils.isSameDay(cellDate, DateTime.now());
+
+                final dateKey = _dateKey(cellDate);
+                final missions = calendarState.missionsByDate[dateKey] ?? <dynamic>[];
+                final completed = missions.where((m) => m.isCompleted).length;
+
+                CompletionLevel level = CompletionLevel.none;
+                if (missions.isNotEmpty && completed == missions.length) {
+                  level = CompletionLevel.all;
+                } else if (completed > 0) {
+                  level = CompletionLevel.some;
+                }
+
+                return BrutalCalendarCell(
+                  date: cellDate,
+                  isSelected: isSelected,
+                  isToday: isToday,
+                  completionLevel: level,
+                  onTap: () =>
+                      ref.read(selectedDateViewModelProvider.notifier).selectDate(cellDate),
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -85,13 +96,12 @@ class CalendarGrid extends ConsumerWidget {
       children: days.map((day) {
         return Expanded(
           child: Center(
-            child: Text(
-              day,
-              style: AppTypography.labelMono,
-            ),
+            child: Text(day, style: AppTypography.labelMono),
           ),
         );
       }).toList(),
     );
   }
+
+  String _dateKey(DateTime date) => '${date.year}-${date.month}-${date.day}';
 }
