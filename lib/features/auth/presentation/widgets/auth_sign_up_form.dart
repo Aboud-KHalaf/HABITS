@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../shared/design_system/app_colors.dart';
-import '../../../../shared/design_system/app_spacing.dart';
 import '../../../../shared/design_system/app_typography.dart';
 import '../../../../shared/widgets/brutal_button.dart';
 import '../viewmodels/auth_viewmodel.dart';
@@ -30,7 +29,9 @@ class _AuthSignUpFormState extends ConsumerState<AuthSignUpForm> {
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
-      ref.read(authViewModelProvider.notifier).signUp(
+      ref
+          .read(authViewModelProvider.notifier)
+          .signUp(
             email: _emailController.text.trim(),
             password: _passwordController.text.trim(),
             fullName: _nameController.text.trim(),
@@ -70,8 +71,9 @@ class _AuthSignUpFormState extends ConsumerState<AuthSignUpForm> {
               if (value == null || value.trim().isEmpty) {
                 return 'Email is required';
               }
-              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                  .hasMatch(value.trim())) {
+              if (!RegExp(
+                r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+              ).hasMatch(value.trim())) {
                 return 'Enter a valid email address';
               }
               return null;
@@ -99,15 +101,10 @@ class _AuthSignUpFormState extends ConsumerState<AuthSignUpForm> {
               height: 56,
               decoration: BoxDecoration(
                 color: AppColors.surfaceContainerHigh,
-                border: Border.all(
-                  color: AppColors.white,
-                  width: 3.0,
-                ),
+                border: Border.all(color: AppColors.white, width: 3.0),
               ),
               child: const Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.neonYellow,
-                ),
+                child: CircularProgressIndicator(color: AppColors.neonYellow),
               ),
             )
           else
