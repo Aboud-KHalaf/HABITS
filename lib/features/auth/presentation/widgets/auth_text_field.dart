@@ -38,17 +38,13 @@ class AuthTextField extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Container(
-          decoration: const BoxDecoration(
-            boxShadow: [AppShadows.level1],
-          ),
+          decoration: const BoxDecoration(boxShadow: [AppShadows.level1]),
           child: TextFormField(
             controller: controller,
             obscureText: obscureText,
             keyboardType: keyboardType,
             validator: validator,
-            style: AppTypography.bodyLg.copyWith(
-              color: AppColors.white,
-            ),
+            style: AppTypography.bodyLg.copyWith(color: AppColors.white),
             decoration: InputDecoration(
               filled: true,
               fillColor: AppColors.surfaceContainerHigh,

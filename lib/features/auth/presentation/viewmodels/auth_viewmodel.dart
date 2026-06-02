@@ -8,10 +8,10 @@ class AuthViewModel extends AsyncNotifier<UserEntity?> {
   FutureOr<UserEntity?> build() async {
     final getCurrentUser = ref.watch(getCurrentUserUseCaseProvider);
     try {
-      return await getCurrentUser.call();
+      final user = await getCurrentUser.call();
+      return user ?? const UserEntity(id: 'no user', email: 'no user', fullName: 'No User');
     } catch (_) {
-      // Return null if there's no authenticated user session or if not implemented
-      return null;
+      return const UserEntity(id: 'no user', email: 'no user', fullName: 'No User');
     }
   }
 
@@ -47,7 +47,7 @@ class AuthViewModel extends AsyncNotifier<UserEntity?> {
     state = await AsyncValue.guard(() async {
       final signOutUseCase = ref.read(signOutUseCaseProvider);
       await signOutUseCase.call();
-      return null;
+      return const UserEntity(id: 'no user', email: 'no user', fullName: 'No User');
     });
   }
 
