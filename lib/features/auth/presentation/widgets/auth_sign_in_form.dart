@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../shared/design_system/app_colors.dart';
-import '../../../../shared/design_system/app_spacing.dart';
 import '../../../../shared/design_system/app_typography.dart';
 import '../../../../shared/widgets/brutal_button.dart';
 import '../viewmodels/auth_viewmodel.dart';
@@ -29,7 +28,9 @@ class _AuthSignInFormState extends ConsumerState<AuthSignInForm> {
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
-      ref.read(authViewModelProvider.notifier).signIn(
+      ref
+          .read(authViewModelProvider.notifier)
+          .signIn(
             email: _emailController.text.trim(),
             password: _passwordController.text.trim(),
           );
@@ -55,8 +56,9 @@ class _AuthSignInFormState extends ConsumerState<AuthSignInForm> {
               if (value == null || value.trim().isEmpty) {
                 return 'Email is required';
               }
-              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                  .hasMatch(value.trim())) {
+              if (!RegExp(
+                r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+              ).hasMatch(value.trim())) {
                 return 'Enter a valid email address';
               }
               return null;
@@ -84,15 +86,10 @@ class _AuthSignInFormState extends ConsumerState<AuthSignInForm> {
               height: 56,
               decoration: BoxDecoration(
                 color: AppColors.surfaceContainerHigh,
-                border: Border.all(
-                  color: AppColors.white,
-                  width: 3.0,
-                ),
+                border: Border.all(color: AppColors.white, width: 3.0),
               ),
               child: const Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.neonYellow,
-                ),
+                child: CircularProgressIndicator(color: AppColors.neonYellow),
               ),
             )
           else

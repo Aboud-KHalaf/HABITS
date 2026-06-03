@@ -9,16 +9,22 @@ class AuthViewModel extends AsyncNotifier<UserEntity?> {
     final getCurrentUser = ref.watch(getCurrentUserUseCaseProvider);
     try {
       final user = await getCurrentUser.call();
-      return user ?? const UserEntity(id: 'no user', email: 'no user', fullName: 'No User');
+      return user ??
+          const UserEntity(
+            id: 'no user',
+            email: 'no user',
+            fullName: 'No User',
+          );
     } catch (_) {
-      return const UserEntity(id: 'no user', email: 'no user', fullName: 'No User');
+      return const UserEntity(
+        id: 'no user',
+        email: 'no user',
+        fullName: 'No User',
+      );
     }
   }
 
-  Future<void> signIn({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> signIn({required String email, required String password}) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final signInUseCase = ref.read(signInUseCaseProvider);
@@ -47,7 +53,11 @@ class AuthViewModel extends AsyncNotifier<UserEntity?> {
     state = await AsyncValue.guard(() async {
       final signOutUseCase = ref.read(signOutUseCaseProvider);
       await signOutUseCase.call();
-      return const UserEntity(id: 'no user', email: 'no user', fullName: 'No User');
+      return const UserEntity(
+        id: 'no user',
+        email: 'no user',
+        fullName: 'No User',
+      );
     });
   }
 
@@ -59,7 +69,8 @@ class AuthViewModel extends AsyncNotifier<UserEntity?> {
   }
 }
 
-final authViewModelProvider =
-    AsyncNotifierProvider<AuthViewModel, UserEntity?>(() {
-  return AuthViewModel();
-});
+final authViewModelProvider = AsyncNotifierProvider<AuthViewModel, UserEntity?>(
+  () {
+    return AuthViewModel();
+  },
+);
